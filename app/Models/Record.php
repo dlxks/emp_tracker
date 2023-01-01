@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Branch extends Model
+class Record extends Model
 {
     use HasFactory;
 
@@ -15,8 +15,12 @@ class Branch extends Model
      * @var string[]
      */
     protected $fillable = [
-        'branch_name',
-        'branch_desc',
+        'branch_id',
+        'year',
+        'total_graduates',
+        'total_employed',
+        'total_unemployed',
+        'total_untracked',
     ];
 
     /**
@@ -26,19 +30,9 @@ class Branch extends Model
      */
     protected $appends = [];
 
-    public function courses()
+    public function branch()
     {
-        return $this->hasMany(Course::class, 'branch_id', 'id');
-    }
-
-    public function records()
-    {
-        return $this->hasMany(Record::class, 'branch_id', 'id');
-    }
-
-    public function users()
-    {
-        return $this->hasMany(User::class, 'branch_id', 'id');
+        return $this->belongsTo(Branch::class);
     }
 
     public function getCreatedAtAttribute($value)

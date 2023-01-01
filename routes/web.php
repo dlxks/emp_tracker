@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\RecordController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,7 @@ Route::get('/admin', function () {
         return Inertia::render('Auth/Login');
     }
 });
+
 Route::prefix('admin')
     ->as('admin.')
     ->middleware(['auth:sanctum', 'verified'])
@@ -49,6 +51,8 @@ Route::prefix('admin')
         Route::resource('course', CourseController::class);
         // User
         Route::resource('user', UserController::class);
+        // Record
+        Route::resource('record', RecordController::class);
     });
 
 // Route::middleware([
