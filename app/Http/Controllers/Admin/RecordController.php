@@ -106,10 +106,14 @@ class RecordController extends Controller
     public function show(Record $record)
     {
         return Inertia::render('Admin/Record/Show', [
-            'exam' => [
+            'record' => [
                 'id' => $record->id,
-                'subject' => $record->subject,
-                'exam_code' => $record->exam_code,
+                'branch_id' => $record->branch,
+                'year' => $record->year,
+                'total_graduates' => $record->total_graduates,
+                'total_employed' => $record->total_employed,
+                'total_unemployed' => $record->total_unemployed,
+                'total_untracked' => $record->total_untracked,
                 // 'quarterly' => $record->questions()->get()->map->only('exam_id', 'id', 'question'),
             ],
         ]);

@@ -104,7 +104,7 @@
                     d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                Add New Year
+                Add New Record
               </jet-button>
             </div>
           </div>
@@ -276,7 +276,7 @@
                         class="px-6 py-1 space-x-1 whitespace-nowrap text-right text-sm font-medium"
                       >
                         <button
-                          @click="view(record, true)"
+                          @click="view(record)"
                           class="inline-flex items-center px-2 py-2 text-green-600 text-sm font-medium rounded-md"
                         >
                           <svg
@@ -347,8 +347,8 @@
 
   <dialog-modal :show="isOpen" @close="openModal(false)">
     <template #title>
-      <span v-show="!editMode"> Add New Year </span>
-      <span v-show="editMode"> Update This Year </span>
+      <span v-show="!editMode"> Add New Record </span>
+      <span v-show="editMode"> Update This Record </span>
     </template>
 
     <template #content>
@@ -601,6 +601,11 @@ export default {
           this.disabledClick(false);
         },
       });
+    },
+
+    // View function
+    view: function (id) {
+      this.$inertia.visit(route("admin.record.show", id));
     },
 
     //Clear filters
