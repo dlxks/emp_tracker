@@ -40,7 +40,9 @@ class QuarterlyController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only('record_id', 'quarter', 'employed', 'unemployed');
+
+        $data = $request->only('record_id', 'year', 'quarter', 'employed');
+        dd($data['record_id']);
 
         $val = Validator::make($request->all(), [
             'quarter' => ['required'],
@@ -62,7 +64,7 @@ class QuarterlyController extends Controller
             'employed' => $data['employed'],
             'unemployed' => $data['unemployed'],
             // 'untracked' => $untracked,
-            // 'year' => $request['year'],
+            'year' => $request['year'],
         ]);
 
         $this->flash('New record added.', 'success');

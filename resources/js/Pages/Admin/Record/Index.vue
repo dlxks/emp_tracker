@@ -121,48 +121,7 @@
                         scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        <span
-                          class="cursor-pointer inline-flex"
-                          @click="sort('branch_name')"
-                        >
-                          <div>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              class="h-4 w-4"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              v-if="
-                                params.field === 'branch_name' &&
-                                params.direction === 'asc'
-                              "
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"
-                              />
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              class="h-4 w-4"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              v-if="
-                                params.field === 'branch_name' &&
-                                params.direction === 'desc'
-                              "
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
-                              />
-                            </svg>
-                          </div>
+                        <span class="inline-flex">
                           <div>Branch/College</div>
                         </span>
                       </th>
@@ -212,32 +171,147 @@
                         scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        <span class="cursor-pointer">
-                          <div class="inline-block">Graduates</div>
+                        <span
+                          class="cursor-pointer inline-flex"
+                          @click="sort('total_graduates')"
+                        >
+                          <div>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="h-4 w-4"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              v-if="
+                                params.field === 'total_graduates' &&
+                                params.direction === 'asc'
+                              "
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"
+                              />
+                            </svg>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="h-4 w-4"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              v-if="
+                                params.field === 'total_graduates' &&
+                                params.direction === 'desc'
+                              "
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
+                              />
+                            </svg>
+                          </div>
+                          <div>Graduates</div>
                         </span>
                       </th>
                       <th
                         scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        <span class="cursor-pointer">
-                          <div class="inline-block">Employed</div>
+                        <span
+                          class="cursor-pointer inline-flex"
+                          @click="sort('total_employed')"
+                        >
+                          <div>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="h-4 w-4"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              v-if="
+                                params.field === 'total_employed' &&
+                                params.direction === 'asc'
+                              "
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"
+                              />
+                            </svg>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="h-4 w-4"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              v-if="
+                                params.field === 'total_employed' &&
+                                params.direction === 'desc'
+                              "
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
+                              />
+                            </svg>
+                          </div>
+                          <div>Employed</div>
                         </span>
                       </th>
                       <th
                         scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        <span class="cursor-pointer">
-                          <div class="inline-block">Unemployed</div>
-                        </span>
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        <span class="cursor-pointer">
-                          <div class="inline-block">Untracked</div>
+                        <span
+                          class="cursor-pointer inline-flex"
+                          @click="sort('total_percentage')"
+                        >
+                          <div>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="h-4 w-4"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              v-if="
+                                params.field === 'total_percentage' &&
+                                params.direction === 'asc'
+                              "
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"
+                              />
+                            </svg>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="h-4 w-4"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              v-if="
+                                params.field === 'total_percentage' &&
+                                params.direction === 'desc'
+                              "
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
+                              />
+                            </svg>
+                          </div>
+                          <div>Employed Percentage</div>
                         </span>
                       </th>
                       <th scope="col" class="relative px-6 py-3">
@@ -267,10 +341,7 @@
                         {{ record.total_employed }}
                       </td>
                       <td class="px-6 py-1 whitespace-nowrap">
-                        {{ record.total_unemployed }}
-                      </td>
-                      <td class="px-6 py-1 whitespace-nowrap">
-                        {{ record.total_untracked }}
+                        {{ record.total_percentage }}
                       </td>
                       <td
                         class="px-6 py-1 space-x-1 whitespace-nowrap text-right text-sm font-medium"
@@ -514,9 +585,6 @@ export default {
         branch: this.branches,
         year: this.year,
         total_graduates: this.total_graduates,
-        total_employed: this.total_employed,
-        total_unemployed: this.total_unemployed,
-        total_untracked: this.total_untracked,
       }),
 
       isOpen: false,

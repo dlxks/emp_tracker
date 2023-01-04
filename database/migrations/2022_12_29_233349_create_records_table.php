@@ -22,8 +22,9 @@ return new class extends Migration
             $table->year('year');
             $table->bigInteger('total_graduates')->nullable();
             $table->bigInteger('total_employed')->nullable();
-            $table->bigInteger('total_unemployed')->nullable();
-            $table->bigInteger('total_untracked')->nullable();
+            $table->decimal('total_precentage', 10, 2)->nullable();
+            // $table->bigInteger('total_unemployed')->nullable();
+            // $table->bigInteger('total_untracked')->nullable();
             $table->timestamps();
         });
     }

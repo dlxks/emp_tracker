@@ -19,8 +19,9 @@ class Record extends Model
         'year',
         'total_graduates',
         'total_employed',
-        'total_unemployed',
-        'total_untracked',
+        'total_percentage',
+        // 'total_unemployed',
+        // 'total_untracked',
     ];
 
     /**

@@ -22,8 +22,9 @@ return new class extends Migration
             $table->year('year');
             $table->string('quarter');
             $table->bigInteger('employed')->nullable();
-            $table->bigInteger('unemployed')->nullable();
-            $table->bigInteger('untracked')->nullable();
+            $table->decimal('precentage', 10, 2)->nullable();
+            // $table->bigInteger('unemployed')->nullable();
+            // $table->bigInteger('untracked')->nullable();
             $table->timestamps();
         });
     }

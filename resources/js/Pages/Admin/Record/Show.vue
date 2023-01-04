@@ -85,7 +85,7 @@
                         scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        <span class="cursor-pointer inline-flex" @click="sort('year')">
+                        <span class="inline-flex">
                           <div>Quarter</div>
                         </span>
                       </th>
@@ -93,7 +93,7 @@
                         scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        <span class="cursor-pointer">
+                        <span class="inline-flex">
                           <div class="inline-block">Employed</div>
                         </span>
                       </th>
@@ -101,16 +101,8 @@
                         scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        <span class="cursor-pointer">
-                          <div class="inline-block">Unemployed</div>
-                        </span>
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        <span class="cursor-pointer">
-                          <div class="inline-block">Untracked</div>
+                        <span class="inline-flex">
+                          <div class="inline-block">Percentage</div>
                         </span>
                       </th>
                       <th scope="col" class="relative px-6 py-3">
@@ -127,15 +119,14 @@
                       </td>
                     </tr>
                     <tr v-for="quarterly in quarterlies" :key="quarterly.id">
-                      <td class="px-6 py-1 whitespace-nowrap">{{ quarterly.quarter }}</td>
+                      <td class="px-6 py-1 whitespace-nowrap">
+                        {{ quarterly.quarter }}
+                      </td>
                       <td class="px-6 py-1 whitespace-nowrap">
                         {{ quarterly.employed }}
                       </td>
                       <td class="px-6 py-1 whitespace-nowrap">
-                        {{ quarterly.unemployed }}
-                      </td>
-                      <td class="px-6 py-1 whitespace-nowrap">
-                        {{ quarterly.untracked }}
+                        {{ quarterly.percentage }}
                       </td>
                       <td
                         class="px-6 py-1 space-x-1 whitespace-nowrap text-right text-sm font-medium"
@@ -236,49 +227,19 @@
       </div>
       <!-- Employed -->
 
-      <!-- Unemployed -->
+      <!-- hidden -->
       <div class="mb-4">
-        <jet-label for="unemployed" value="Number of Unemployed" />
+        <jet-label for="record_id" value="Record ID" />
         <jet-input
-          id="unemployed"
+          id="record_id"
           type="number"
           class="mt-1 block w-full"
-          v-show="!editMode"
-          v-model="form.unemployed"
+          v-model="form.record_id"
           @keyup.enter="save(form)"
-        />
-        <jet-input
-          id="unemployed"
-          type="number"
-          class="mt-1 block w-full"
-          v-show="editMode"
-          v-model="form.unemployed"
-          @keyup.enter="update(form)"
         />
       </div>
-      <!-- Unemployed -->
-
-      <!-- Untracked -->
-      <!-- <div class="mb-4">
-        <jet-label for="untracked" value="Number of Untracked" />
-        <jet-input
-          id="untracked"
-          type="number"
-          class="mt-1 block w-full"
-          v-show="!editMode"
-          v-model="form.untracked"
-          @keyup.enter="save(form)"
-        />
-        <jet-input
-          id="untracked"
-          type="number"
-          class="mt-1 block w-full"
-          v-show="editMode"
-          v-model="form.untracked"
-          @keyup.enter="update(form)"
-        />
-      </div> -->
-      <!-- Untracked -->
+      
+      <!-- hidden -->
     </template>
 
     <template #footer>
@@ -351,8 +312,6 @@ export default {
         year: this.record.year,
         quarter: this.quarter,
         employed: this.employed,
-        unemployed: this.unemployed,
-        // untracked: this.untracked,
       }),
 
       isOpen: false,

@@ -19,8 +19,9 @@ class Quarterly extends Model
         'year',
         'quarter',
         'employed',
-        'unemployed',
-        'untracked',
+        'percentage',
+        // 'unemployed',
+        // 'untracked',
     ];
 
     /**

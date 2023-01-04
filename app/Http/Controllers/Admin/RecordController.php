@@ -23,7 +23,7 @@ class RecordController extends Controller
     {
         request()->validate([
             'direction' => ['in:asc,desc'],
-            'field' => ['in:course_name,course_desc'],
+            'field' => ['in:branch_name,year,total_graduates,total_employed,total_percentage'],
         ]);
 
         $data = Record::with('branch');
@@ -31,18 +31,32 @@ class RecordController extends Controller
 
         $branch_names = Branch::latest()->orderBy('branch_name', 'asc')->get();
 
+        // Search
+        $search_keyword = request('search');
         if (request('search')) {
-            $data->where('course_name', 'like', '%' . request('search') . '%')
-                ->orWhere('course_desc', 'like', '%' . request('search') . '%');
+            $data->where(function ($data) use ($search_keyword) {
+                $data->where('year', 'like', '%' . request('search') . '%')
+                    ->orWhere('total_graduates', 'like', '%' . request('search') . '%')
+                    ->orWhere('total_employed', 'like', '%' . request('search') . '%')
+                    ->orWhere('total_percentage', 'like', '%' . request('search') . '%')
+                    ->orwhereHas('branch', function ($subq) use ($search_keyword) {
+                        $subq->where(function ($subq2) use ($search_keyword) {
+                            $subq2->orWhere('branch_name', 'like', '%' . request('search') . '%');
+                        });
+                    });
+            });
         }
 
         if (request()->has(['field', 'direction'])) {
-            $data->orderBy(request('field'), request('direction'))->get();
+            // $data->orderBy(request('field'), request('direction'))->get();
+
+            $sortDirection = $request['direction'];
+
+            $data->orderBy(request('field'), request('direction'))
+                ->get();
         }
 
         if (request()->has(['branch_filter'])) {
-            // $data->where('courses.branches.branch_name',  request('branch_filter'));
-
             $searchTxt = request('branch_filter');
 
             $data->whereHas('branch', function ($data) use ($searchTxt) {
@@ -108,10 +122,12 @@ class RecordController extends Controller
         $branch = Branch::where('id', $record->branch_id)
             ->first();
 
+        $querterly_records = $record->quarterlies()->orderBy('quarter')->get();
+
         return Inertia::render('Admin/Record/Show', [
             'record' => $record,
             'branch' => $branch,
-            'quarterlies' => $record->quarterlies()->get(),
+            'quarterlies' => $querterly_records,
             // 'record' => [
             //     'id' => $record->id,
             //     'branch_id' => $record->branch,
