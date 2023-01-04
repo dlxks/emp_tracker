@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\QuarterlyController;
 use App\Http\Controllers\Admin\RecordController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Foundation\Application;
@@ -48,11 +49,13 @@ Route::prefix('admin')
         // Branch
         Route::resource('branch', BranchController::class);
         // Course
-        Route::resource('course', CourseController::class);
+        // Route::resource('course', CourseController::class);
         // User
         Route::resource('user', UserController::class);
         // Record
         Route::resource('record', RecordController::class);
+        // Quarterly
+        Route::resource('quarterly', QuarterlyController::class);
     });
 
 // Route::middleware([

@@ -433,7 +433,7 @@
           class="mt-1 block w-full"
           v-show="editMode"
           v-model="form.total_graduates"
-          @keyup.enter="udpate(form)"
+          @keyup.enter="update(form)"
         />
       </div>
       <!-- Graduates -->
@@ -551,10 +551,10 @@ export default {
     },
 
     // Save function
-    save: function (course) {
+    save: function (record) {
       this.$inertia.visit("/admin/record", {
         method: "post",
-        data: course,
+        data: record,
         onBefore: () => {
           this.disabledClick(true);
         },

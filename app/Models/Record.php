@@ -35,6 +35,11 @@ class Record extends Model
         return $this->belongsTo(Branch::class);
     }
 
+    public function quarterlies()
+    {
+        return $this->hasMany(Quarterly::class, 'record_id', 'id');
+    }
+
     public function getCreatedAtAttribute($value)
     {
         return now()->parse($value)->timezone(config('app.timezone'))->format('d F Y, H:i:s');

@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\Banner;
 use App\Models\Quarterly;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class QuarterlyController extends Controller
 {
+    use Banner;
+
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +40,34 @@ class QuarterlyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->only('record_id', 'quarter', 'employed', 'unemployed');
+
+        $val = Validator::make($request->all(), [
+            'quarter' => ['required'],
+            'employed' => ['required', 'integer'],
+            'unemployed' => ['required', 'integer'],
+            // 'untracked' => ['required', 'integer'],
+        ]);
+
+        // $untracked = 
+
+        if ($val->fails()) {
+            $this->flash($val->errors()->first(), 'danger');
+            return back();
+        }
+
+        Quarterly::create([
+            'record_id' => $data['record_id'],
+            'quarter' => $data['quarter'],
+            'employed' => $data['employed'],
+            'unemployed' => $data['unemployed'],
+            // 'untracked' => $untracked,
+            // 'year' => $request['year'],
+        ]);
+
+        $this->flash('New record added.', 'success');
+
+        return redirect()->back();
     }
 
     /**
@@ -70,7 +101,30 @@ class QuarterlyController extends Controller
      */
     public function update(Request $request, Quarterly $quarterly)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'quarter' => ['required'],
+            'employed' => ['required', 'integer'],
+            'unemployed' => ['required', 'integer'],
+            'untracked' => ['required', 'integer'],
+        ]);
+
+        if ($validator->fails()) {
+            $this->flash($validator->errors()->first(), 'danger');
+            return back();
+        }
+
+        $quarterly->update([
+            'record_id' => $request['record_id'],
+            'quarter' => $request['quarter'],
+            'employed' => $request['employed'],
+            'unemployed' => $request['unemployed'],
+            'untracked' => $request['untracked'],
+            // 'year' => $request['year'],
+        ]);
+
+        $this->flash('Record updated.', 'success');
+
+        return redirect()->back();
     }
 
     /**

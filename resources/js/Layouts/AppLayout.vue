@@ -64,7 +64,10 @@ const logout = () => {
               <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                 <NavLink
                   :href="route('admin.record.index')"
-                  :active="route().current('admin.record.index')"
+                  :active="
+                    route().current('admin.record.index') ||
+                    route().current('admin.record.show')
+                  "
                 >
                   Records
                 </NavLink>
@@ -79,14 +82,14 @@ const logout = () => {
                 </NavLink>
               </div>
 
-              <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+              <!-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                 <NavLink
                   :href="route('admin.course.index')"
                   :active="route().current('admin.course.index')"
                 >
                   Courses
                 </NavLink>
-              </div>
+              </div> -->
 
               <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                 <NavLink

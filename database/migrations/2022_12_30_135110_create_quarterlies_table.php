@@ -19,6 +19,7 @@ return new class extends Migration
                 ->constrained('records')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->year('year');
             $table->string('quarter');
             $table->bigInteger('employed')->nullable();
             $table->bigInteger('unemployed')->nullable();

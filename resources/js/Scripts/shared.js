@@ -5,31 +5,9 @@ export default {
             selectedItem: false,
             roles: ["coordinator", "admin"],
             perpages: [1, 5, 10, 25, 50, 100],
-            options: [
-                {
-                    option: "",
-                    is_correct: false,
-                    img_path: "",
-                },
-                {
-                    option: "",
-                    is_correct: false,
-                    img_path: "",
-                },
-                {
-                    option: "",
-                    is_correct: false,
-                    img_path: "",
-                },
-                {
-                    option: "",
-                    is_correct: false,
-                    img_path: "",
-                },
-            ],
             status: ["active", "inactive"],
-            categories: ["Requirements", "Admission", "Courses", "Contact Information", "Other"],
-            qualifications: ["pending", "qualified", "not qualified"],
+            // quarters: ["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"],
+            quarters: ["1st", "2nd", "3rd", "4th"],
         };
     },
     methods: {
@@ -53,16 +31,6 @@ export default {
         getStatus: function () {
             let urlParams = new URLSearchParams(window.location.search);
             return urlParams.get("status");
-        },
-
-        getCategories: function () {
-            let urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get("categories");
-        },
-
-        getQualifications: function () {
-            let urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get("qualifications");
         },
     },
 };

@@ -105,17 +105,24 @@ class RecordController extends Controller
      */
     public function show(Record $record)
     {
+        $branch = Branch::where('id', $record->branch_id)
+            ->first();
+
         return Inertia::render('Admin/Record/Show', [
-            'record' => [
-                'id' => $record->id,
-                'branch_id' => $record->branch,
-                'year' => $record->year,
-                'total_graduates' => $record->total_graduates,
-                'total_employed' => $record->total_employed,
-                'total_unemployed' => $record->total_unemployed,
-                'total_untracked' => $record->total_untracked,
-                // 'quarterly' => $record->questions()->get()->map->only('exam_id', 'id', 'question'),
-            ],
+            'record' => $record,
+            'branch' => $branch,
+            'quarterlies' => $record->quarterlies()->get(),
+            // 'record' => [
+            //     'id' => $record->id,
+            //     'branch_id' => $record->branch,
+            //     'branch_name' => $branch,
+            //     'year' => $record->year,
+            //     'total_graduates' => $record->total_graduates,
+            //     'total_employed' => $record->total_employed,
+            //     'total_unemployed' => $record->total_unemployed,
+            //     'total_untracked' => $record->total_untracked,
+            //     // 'quarterly' => $record->questions()->get()->map->only('exam_id', 'id', 'question'),
+            // ],
         ]);
     }
 
