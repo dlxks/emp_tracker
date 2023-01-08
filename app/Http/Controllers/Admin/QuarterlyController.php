@@ -41,31 +41,36 @@ class QuarterlyController extends Controller
     public function store(Request $request)
     {
 
-        $data = $request->only('record_id', 'year', 'quarter', 'employed');
-        dd($data['record_id']);
+        // $data = $request->only('record_id', 'year', 'quarter', 'employed', 'total_graduates');
+
+        // dd($request['year']);
 
         $val = Validator::make($request->all(), [
+            'record_id' => ['required'],
+            'year' => ['required'],
             'quarter' => ['required'],
             'employed' => ['required', 'integer'],
-            'unemployed' => ['required', 'integer'],
-            // 'untracked' => ['required', 'integer'],
+            'total_graduates' => ['required', 'integer'],
         ]);
-
-        // $untracked = 
 
         if ($val->fails()) {
             $this->flash($val->errors()->first(), 'danger');
             return back();
         }
 
-        Quarterly::create([
-            'record_id' => $data['record_id'],
-            'quarter' => $data['quarter'],
-            'employed' => $data['employed'],
-            'unemployed' => $data['unemployed'],
-            // 'untracked' => $untracked,
-            'year' => $request['year'],
-        ]);
+        $percentage = ($request['employed'] / $request['total_graduates']) * 100;
+
+        Quarterly::updateOrCreate(
+            [
+                'quarter' => $request['quarter'],
+                'year' => $request['year'],
+            ],
+            [
+                'record_id' => $request['record_id'],
+                'employed' => $request['employed'],
+                'percentage' => $percentage,
+            ]
+        );
 
         $this->flash('New record added.', 'success');
 
@@ -104,10 +109,11 @@ class QuarterlyController extends Controller
     public function update(Request $request, Quarterly $quarterly)
     {
         $validator = Validator::make($request->all(), [
+            'record_id' => ['required'],
+            'year' => ['required'],
             'quarter' => ['required'],
             'employed' => ['required', 'integer'],
-            'unemployed' => ['required', 'integer'],
-            'untracked' => ['required', 'integer'],
+            'total_graduates' => ['required', 'integer'],
         ]);
 
         if ($validator->fails()) {
@@ -115,13 +121,14 @@ class QuarterlyController extends Controller
             return back();
         }
 
+        $percentage = ($request['employed'] / $request['total_graduates']) * 100;
+
         $quarterly->update([
-            'record_id' => $request['record_id'],
             'quarter' => $request['quarter'],
+            'year' => $request['year'],
+            'record_id' => $request['record_id'],
             'employed' => $request['employed'],
-            'unemployed' => $request['unemployed'],
-            'untracked' => $request['untracked'],
-            // 'year' => $request['year'],
+            'percentage' => $percentage,
         ]);
 
         $this->flash('Record updated.', 'success');

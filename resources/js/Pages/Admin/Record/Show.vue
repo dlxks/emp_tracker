@@ -235,10 +235,30 @@
           type="number"
           class="mt-1 block w-full"
           v-model="form.record_id"
-          @keyup.enter="save(form)"
+          disabled
         />
       </div>
-      
+      <div class="mb-4">
+        <jet-label for="graduates" value="Graduates" />
+        <jet-input
+          id="graduates"
+          type="number"
+          class="mt-1 block w-full"
+          v-model="form.total_graduates"
+          disabled
+        />
+      </div>
+      <div class="mb-4">
+        <jet-label for="year" value="Year" />
+        <Datepicker
+          v-model="form.year"
+          year-picker
+          class="mt-1 block w-full"
+          id="year"
+          ref="year"
+          disabled
+        />
+      </div>
       <!-- hidden -->
     </template>
 
@@ -309,6 +329,7 @@ export default {
     return {
       form: this.$inertia.form({
         record_id: this.record.id,
+        total_graduates: this.record.total_graduates,
         year: this.record.year,
         quarter: this.quarter,
         employed: this.employed,
@@ -331,7 +352,7 @@ export default {
       if (status == true) {
         this.isOpen = true;
       } else if (status == false) {
-        this.form = {};
+        this.form.reset();
         this.isOpen = false;
         this.editMode = false;
       }
@@ -350,11 +371,8 @@ export default {
       this.$inertia.visit("/admin/quarterly", {
         method: "post",
         data: quarterly,
-        // onBefore: () => {
-        //   this.disabledClick(true);
-        // },
         onSuccess: () => {
-          this.disabledClick(false), this.openModal(false), (this.form = {});
+          this.disabledClick(false), this.openModal(false);
         },
         preserveScroll: true,
         preserveState: true,
@@ -362,9 +380,9 @@ export default {
     },
 
     // Edit mode function
+    // Exam assign data
     edit: function (quarterly, status) {
       this.form = Object.assign({}, quarterly);
-      this.editMode = true;
       this.openModal(status);
     },
 
