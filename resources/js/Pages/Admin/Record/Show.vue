@@ -229,31 +229,31 @@
 
       <!-- hidden -->
       <div class="mb-4">
-        <jet-label for="record_id" value="Record ID" />
+        <!-- <jet-label for="record_id" value="Record ID" /> -->
         <jet-input
           id="record_id"
-          type="number"
+          type="hidden"
           class="mt-1 block w-full"
           v-model="form.record_id"
           disabled
         />
       </div>
       <div class="mb-4">
-        <jet-label for="graduates" value="Graduates" />
+        <!-- <jet-label for="graduates" value="Graduates" /> -->
         <jet-input
           id="graduates"
-          type="number"
+          type="hidden"
           class="mt-1 block w-full"
           v-model="form.total_graduates"
           disabled
         />
       </div>
       <div class="mb-4">
-        <jet-label for="year" value="Year" />
+        <!-- <jet-label for="year" value="Year" /> -->
         <Datepicker
           v-model="form.year"
           year-picker
-          class="mt-1 block w-full"
+          class="mt-1 w-full hidden"
           id="year"
           ref="year"
           disabled
@@ -352,7 +352,6 @@ export default {
       if (status == true) {
         this.isOpen = true;
       } else if (status == false) {
-        this.form.reset();
         this.isOpen = false;
         this.editMode = false;
       }
@@ -380,9 +379,9 @@ export default {
     },
 
     // Edit mode function
-    // Exam assign data
     edit: function (quarterly, status) {
       this.form = Object.assign({}, quarterly);
+      this.editMode = true;
       this.openModal(status);
     },
 
