@@ -172,8 +172,11 @@ class QuarterlyController extends Controller
      */
     public function destroy(Request $request, Quarterly $quarterly)
     {
-        dd($quarterly);
-        // $data = Quarterly::find($id);
+        $f_record = Record::where('id', $quarterly->record_id)
+            ->first();
+        // $
+
+        // $data = Quarterly::find($quarterly->id);
         // $data->delete();
 
         // $this->flash('Record removed.', 'success');

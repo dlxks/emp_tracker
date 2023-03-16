@@ -49,7 +49,6 @@ class RecordController extends Controller
 
         if (request()->has(['field', 'direction'])) {
             // $data->orderBy(request('field'), request('direction'))->get();
-
             $sortDirection = $request['direction'];
 
             $data->orderBy(request('field'), request('direction'))
