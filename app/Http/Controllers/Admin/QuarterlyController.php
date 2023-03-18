@@ -8,6 +8,7 @@ use App\Models\Quarterly;
 use App\Models\Record;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Termwind\Components\Dd;
 
 class QuarterlyController extends Controller
 {
@@ -70,8 +71,6 @@ class QuarterlyController extends Controller
             // Compute for the percentage of graduate.
             $percentage = ($request['employed'] / $request['total_graduates']) * 100;
             $total_percentage = ($total_employed / $request['total_graduates']) * 100;
-
-            // dd($total_percentage);
 
             // Storing quarterly
             $store_quarterly = Quarterly::updateOrCreate(
@@ -136,32 +135,32 @@ class QuarterlyController extends Controller
      */
     public function update(Request $request, Quarterly $quarterly)
     {
-        $validator = Validator::make($request->all(), [
-            'record_id' => ['required'],
-            // 'year' => ['required'],
-            'quarter' => ['required'],
-            'employed' => ['required', 'integer'],
-            'total_graduates' => ['required', 'integer'],
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'record_id' => ['required'],
+        //     // 'year' => ['required'],
+        //     'quarter' => ['required'],
+        //     'employed' => ['required', 'integer'],
+        //     'total_graduates' => ['required', 'integer'],
+        // ]);
 
-        if ($validator->fails()) {
-            $this->flash($validator->errors()->first(), 'danger');
-            return back();
-        }
+        // if ($validator->fails()) {
+        //     $this->flash($validator->errors()->first(), 'danger');
+        //     return back();
+        // }
 
-        $percentage = ($request['employed'] / $request['total_graduates']) * 100;
+        // $percentage = ($request['employed'] / $request['total_graduates']) * 100;
 
-        $quarterly->update([
-            'quarter' => $request['quarter'],
-            // 'year' => $request['year'],
-            'record_id' => $request['record_id'],
-            'employed' => $request['employed'],
-            'percentage' => $percentage,
-        ]);
+        // $quarterly->update([
+        //     'quarter' => $request['quarter'],
+        //     // 'year' => $request['year'],
+        //     'record_id' => $request['record_id'],
+        //     'employed' => $request['employed'],
+        //     'percentage' => $percentage,
+        // ]);
 
-        $this->flash('Record updated.', 'success');
+        // $this->flash('Record updated.', 'success');
 
-        return redirect()->back();
+        // return redirect()->back();
     }
 
     /**
@@ -172,15 +171,23 @@ class QuarterlyController extends Controller
      */
     public function destroy(Request $request, Quarterly $quarterly)
     {
+        // Get data of records
         $f_record = Record::where('id', $quarterly->record_id)
             ->first();
-        // $
+        // Subtract the number of employed in a quarter to the total number of employed in the records
+        $n_employed = $f_record->total_employed - $quarterly->employed;
+        // Compute for new percentage
+        $n_percent = ($n_employed / $f_record->total_graduates) * 100;
+        // Updating in records
+        $fnd_record = Record::where('id', $request['record_id'])->first();
+        $f_record->update([
+            'total_employed' => $n_employed,
+            'total_percentage' => $n_percent,
+        ]);
 
-        // $data = Quarterly::find($quarterly->id);
-        // $data->delete();
-
-        // $this->flash('Record removed.', 'success');
-
-        // return redirect()->back();
+        // Deleting quartely data
+        $quarterly->delete();
+        $this->flash('Data removed.', 'success');
+        return redirect()->back();
     }
 }
