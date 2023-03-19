@@ -92,15 +92,8 @@ class QuarterlyController extends Controller
                 'total_percentage' => $total_percentage,
             ]);
 
-            // if ($store_quarterly->fails()) {
-            //     $this->flash($store_quarterly->errors()->first(), 'danger');
-            //     return redirect()->back();
-            // } else {
             $this->flash('New record added.', 'success');
             return redirect()->back();
-            // }
-
-
         }
     }
 
@@ -135,32 +128,7 @@ class QuarterlyController extends Controller
      */
     public function update(Request $request, Quarterly $quarterly)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'record_id' => ['required'],
-        //     // 'year' => ['required'],
-        //     'quarter' => ['required'],
-        //     'employed' => ['required', 'integer'],
-        //     'total_graduates' => ['required', 'integer'],
-        // ]);
-
-        // if ($validator->fails()) {
-        //     $this->flash($validator->errors()->first(), 'danger');
-        //     return back();
-        // }
-
-        // $percentage = ($request['employed'] / $request['total_graduates']) * 100;
-
-        // $quarterly->update([
-        //     'quarter' => $request['quarter'],
-        //     // 'year' => $request['year'],
-        //     'record_id' => $request['record_id'],
-        //     'employed' => $request['employed'],
-        //     'percentage' => $percentage,
-        // ]);
-
-        // $this->flash('Record updated.', 'success');
-
-        // return redirect()->back();
+        // 
     }
 
     /**

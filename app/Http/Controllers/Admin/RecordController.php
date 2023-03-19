@@ -127,18 +127,50 @@ class RecordController extends Controller
             'record' => $record,
             'branch' => $branch,
             'quarterlies' => $querterly_records,
-            // 'record' => [
-            //     'id' => $record->id,
-            //     'branch_id' => $record->branch,
-            //     'branch_name' => $branch,
-            //     'year' => $record->year,
-            //     'total_graduates' => $record->total_graduates,
-            //     'total_employed' => $record->total_employed,
-            //     'total_unemployed' => $record->total_unemployed,
-            //     'total_untracked' => $record->total_untracked,
-            //     // 'quarterly' => $record->questions()->get()->map->only('exam_id', 'id', 'question'),
-            // ],
         ]);
+
+
+        // return Inertia::render('Task/Chart', ['data' => $this->getData()]);
+    }
+
+    
+
+    // Get data for chart
+    public function getData()
+    {
+        // $rows = $this->tasks->join('users', 'tasks.created_by', '=', 'users.id')
+        //     ->select(\DB::raw('users.name as label, count(tasks.status) as data'))
+        //     ->where('tasks.status', 'Complete')
+        //     ->groupBy('users.name')
+        //     ->get();
+
+        // $data = [];
+        // $labels = [];
+        // $colors = [];
+
+        // foreach ($rows as $row) {
+        //     array_push($data, $row->data);
+        //     array_push($labels, $row->label);
+        //     if (!in_array($this->pickColor(), $colors)) {
+        //         array_push($colors, $this->pickColor());
+        //     }
+        // }
+
+        // $filtered = [
+        //     'labels' => $labels,
+        //     'data' => $data,
+        //     'colors' => $colors
+        // ];
+
+        // return $filtered;
+    }
+
+    // Random color
+    public function pickColor()
+    {
+        $rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
+        $color = '#' . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)];
+        return $color;
     }
 
     /**
