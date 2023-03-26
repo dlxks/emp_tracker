@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\Banner;
 use App\Models\Branch;
+use App\Models\Quarterly;
 use App\Models\Record;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,6 +14,13 @@ use Inertia\Inertia;
 class RecordController extends Controller
 {
     use Banner;
+
+    // protected $quarterlies;
+
+    // public function __construct(Quarterly $quarterlies)
+    // {
+    //     $this->quarterlies = $quarterlies;
+    // }
 
     /**
      * Display a listing of the resource.
@@ -121,49 +129,69 @@ class RecordController extends Controller
         $branch = Branch::where('id', $record->branch_id)
             ->first();
 
-        $querterly_records = $record->quarterlies()->orderBy('quarter')->get();
+        $quarterly_records = $record->quarterlies()->orderBy('quarter')->get();
+
+        // For chart
+        $n_employed = [];
+        $n_percentage = [];
+        $labels = [];
+        $colors = [];
+
+        foreach ($quarterly_records as $row) {
+            array_push($n_employed, $row->employed);
+            array_push($n_percentage, $row->percentage);
+            array_push($labels, $row->quarter);
+            if (!in_array($this->pickColor(), $colors)) {
+                array_push($colors, $this->pickColor());
+            }
+        }
+
+        $filtered = [
+            'labels' => $labels,
+            'employed' => $n_employed,
+            'percentage' => $n_percentage,
+            'colors' => $colors
+        ];
 
         return Inertia::render('Admin/Record/Show', [
             'record' => $record,
             'branch' => $branch,
-            'quarterlies' => $querterly_records,
+            'quarterlies' => $quarterly_records,
+            'data' => $filtered,
         ]);
-
 
         // return Inertia::render('Task/Chart', ['data' => $this->getData()]);
     }
 
-    
-
     // Get data for chart
-    public function getData()
-    {
-        // $rows = $this->tasks->join('users', 'tasks.created_by', '=', 'users.id')
-        //     ->select(\DB::raw('users.name as label, count(tasks.status) as data'))
-        //     ->where('tasks.status', 'Complete')
-        //     ->groupBy('users.name')
-        //     ->get();
+    // public function getQuarterlies()
+    // {
+    //     $rows = $this->quarterlies->join('users', 'tasks.created_by', '=', 'users.id')
+    //         ->select(\DB::raw('users.name as label, count(tasks.status) as data'))
+    //         ->where('tasks.status', 'Complete')
+    //         ->groupBy('users.name')
+    //         ->get();
 
-        // $data = [];
-        // $labels = [];
-        // $colors = [];
+    //     $data = [];
+    //     $labels = [];
+    //     $colors = [];
 
-        // foreach ($rows as $row) {
-        //     array_push($data, $row->data);
-        //     array_push($labels, $row->label);
-        //     if (!in_array($this->pickColor(), $colors)) {
-        //         array_push($colors, $this->pickColor());
-        //     }
-        // }
+    //     foreach ($rows as $row) {
+    //         array_push($data, $row->data);
+    //         array_push($labels, $row->label);
+    //         if (!in_array($this->pickColor(), $colors)) {
+    //             array_push($colors, $this->pickColor());
+    //         }
+    //     }
 
-        // $filtered = [
-        //     'labels' => $labels,
-        //     'data' => $data,
-        //     'colors' => $colors
-        // ];
+    //     $filtered = [
+    //         'labels' => $labels,
+    //         'data' => $data,
+    //         'colors' => $colors
+    //     ];
 
-        // return $filtered;
-    }
+    //     return $filtered;
+    // }
 
     // Random color
     public function pickColor()

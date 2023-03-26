@@ -75,16 +75,33 @@
         </div>
 
         <!-- DISPLAY CHART -->
-        <div style="height: 600px; width: 600px; display: flex; flex-direction: column">
-          <button type="submit" @click="exportChart">Export Chart as PNG</button>
-          <button @click="updateChart">Update Chart</button>
-          <vue3-chart-js
-            :id="doughnutChart.id"
-            ref="chartRef"
-            :type="doughnutChart.type"
-            :data="doughnutChart.data"
-            :options="doughnutChart.options"
-          ></vue3-chart-js>
+        <div class="mx-auto sm:px-6 lg:px-8">
+          <div class="mx-auto w-auto sm:w-96 object-none object-center px-5 py-3">
+            <div class="w-auto px-2 text-center">
+              <button
+                type="submit"
+                @click="exportChart"
+                class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-300 font-medium rounded-l-md text-sm px-4 py-2 text-center"
+              >
+                Export Chart as PNG
+              </button>
+              <button
+                @click="updateChart"
+                class="text-white bg-orange-400 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-300 font-medium rounded-r-md text-sm px-4 py-2 text-center"
+              >
+                Update Chart
+              </button>
+            </div>
+            <div class="pb-2 sm:pb-0">
+              <vue3-chart-js
+                :id="doughnutChart.id"
+                ref="chartRef"
+                :type="doughnutChart.type"
+                :data="doughnutChart.data"
+                :options="doughnutChart.options"
+              ></vue3-chart-js>
+            </div>
+          </div>
         </div>
         <!-- DISPLAY CHART -->
 
@@ -300,6 +317,7 @@ import DialogModal from "@/Components/DialogModal.vue";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
+import { objectToString } from "@vue/shared";
 
 export default {
   name: "App",
@@ -317,36 +335,60 @@ export default {
     Vue3ChartJs,
   },
 
-  setup() {
+  props: {
+    record: Object,
+    branch: Object,
+    quarterlies: Object,
+    data: Object,
+  },
+
+  setup(quarterlies) {
     const chartRef = ref(null);
 
     const doughnutChart = {
-      id: "doughnut",
+      id: "doughnutChart",
       type: "doughnut",
       data: {
-        labels: ["VueJs", "EmberJs", "ReactJs", "AngularJs"],
+        labels: quarterlies.data.labels,
         datasets: [
           {
-            backgroundColor: ["#41B883", "#E46651", "#00D8FF", "#DD1B16"],
-            data: [40, 20, 80, 10],
+            label: "Percentage",
+            data: quarterlies.data.percentage,
+            backgroundColor: quarterlies.data.colors,
+          },
+          {
+            label: "Number of employed",
+            data: quarterlies.data.employed,
+            backgroundColor: quarterlies.data.colors,
           },
         ],
       },
       options: {
-        plugins: {},
+        plugins: {
+          title: {
+            display: true,
+            text: "Number of employed graduates per quarter.",
+          },
+        },
       },
     };
 
     const updateChart = () => {
       doughnutChart.options.plugins.title = {
-        text: "Updated Chart",
+        text: "Number of employed graduates per quarter.",
         display: true,
       };
-      doughnutChart.data.labels = ["Cats", "Dogs", "Hamsters", "Dragons"];
+      doughnutChart.data.labels = quarterlies.data.labels;
       doughnutChart.data.datasets = [
         {
-          backgroundColor: ["#333333", "#E46651", "#00D8FF", "#DD1B16"],
-          data: [100, 20, 800, 20],
+          labels: "Percentage per quarter",
+          data: quarterlies.data.percentage,
+          backgroundColor: quarterlies.data.colors,
+        },
+        {
+          labels: "Number of employed per quarter",
+          data: quarterlies.data.employed,
+          backgroundColor: quarterlies.data.colors,
         },
       ];
 
@@ -356,7 +398,7 @@ export default {
     const exportChart = () => {
       let a = document.createElement("a");
       a.href = chartRef.value.chartJSState.chart.toBase64Image();
-      a.download = "image-export.png";
+      a.download = "chart-export.png";
       a.click();
       a = null;
     };
@@ -367,12 +409,6 @@ export default {
       exportChart,
       chartRef,
     };
-  },
-
-  props: {
-    record: Object,
-    branch: Object,
-    quarterlies: Object,
   },
 
   extends: shared,
