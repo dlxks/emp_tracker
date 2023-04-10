@@ -381,12 +381,12 @@ export default {
       doughnutChart.data.labels = quarterlies.data.labels;
       doughnutChart.data.datasets = [
         {
-          labels: "Percentage per quarter",
+          label: "Percentage per quarter",
           data: quarterlies.data.percentage,
           backgroundColor: quarterlies.data.colors,
         },
         {
-          labels: "Number of employed per quarter",
+          label: "Number of employed per quarter",
           data: quarterlies.data.employed,
           backgroundColor: quarterlies.data.colors,
         },
