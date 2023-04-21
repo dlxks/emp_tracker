@@ -55,6 +55,23 @@
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Header -->
+        <jet-button @click="openModal(true)">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          Add Record
+        </jet-button>
         <div class="">
           <div class="text-gray-600">
             Branch:
@@ -355,11 +372,13 @@ export default {
             label: "Percentage",
             data: quarterlies.data.percentage,
             backgroundColor: quarterlies.data.colors,
+            offset: 4,
           },
           {
             label: "Number of employed",
             data: quarterlies.data.employed,
             backgroundColor: quarterlies.data.colors,
+            offset: 4,
           },
         ],
       },
@@ -381,14 +400,16 @@ export default {
       doughnutChart.data.labels = quarterlies.data.labels;
       doughnutChart.data.datasets = [
         {
-          label: "Percentage per quarter",
+          label: "Percentage",
           data: quarterlies.data.percentage,
           backgroundColor: quarterlies.data.colors,
+          offset: 4,
         },
         {
-          label: "Number of employed per quarter",
+          label: "Number of employed",
           data: quarterlies.data.employed,
           backgroundColor: quarterlies.data.colors,
+          offset: 4,
         },
       ];
 

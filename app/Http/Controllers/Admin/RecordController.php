@@ -35,9 +35,71 @@ class RecordController extends Controller
         ]);
 
         $data = Record::with('branch');
-        $perpage = $request->input('perpage') ?: 25;
 
-        $branch_names = Branch::latest()->orderBy('branch_name', 'asc')->get();
+        $chart_data = Record::with('branch')
+            ->orderBy('year', 'asc')
+            ->get();
+
+        // Line Chart
+        $d_employed = [];
+        $d_percentage = [];
+        $d_graduates = [];
+        $labels = [];
+        $colors = [];
+        $colors2 = [];
+
+        foreach ($chart_data as $row) {
+            array_push($d_employed, $row->total_employed);
+            array_push($d_percentage, $row->total_percentage . '');
+            array_push($d_graduates, $row->total_graduates);
+            array_push($labels, $row->branch->branch_name . ': ' . $row->year);
+            if (!in_array($this->pickColor(), $colors)) {
+                array_push($colors, $this->pickColor());
+            }
+            if (!in_array($this->pickColor2(), $colors2)) {
+                array_push($colors2, $this->pickColor());
+            }
+        }
+
+        $filtered = [
+            'labels' => $labels,
+            'employed' => $d_employed,
+            'percentage' => $d_percentage,
+            'graduates' => $d_graduates,
+            'colors' => $colors,
+            'colors2' => $colors2
+        ];
+        // End Line Chart
+
+        // Doughnut Chart
+        $t_years = [];
+        $t_graduates = [];
+
+        foreach ($chart_data as $row) {
+            $total_graduates = 0;
+
+            if (in_array($row->year, $t_years)) {
+                // 
+            } else {
+                array_push($t_years, $row->year);
+            }
+
+            // array_push($d_employed, $row->total_employed);
+            // array_push($d_percentage, $row->total_percentage . '');
+            // array_push($d_graduates, $row->total_graduates);
+            // array_push($labels, $row->branch->branch_name . ': ' . $row->year);
+            if (!in_array($this->pickColor(), $colors)) {
+                array_push($colors, $this->pickColor());
+            }
+        }
+        // End Doughnut Chart
+
+        $perpage = $request->input('perpage') ?: 10;
+
+        $branch_names = Branch::latest()
+            ->where('branch_name', '!=', 'MAIN')
+            ->orderBy('branch_name', 'asc')
+            ->get();
 
         // Search
         $search_keyword = request('search');
@@ -56,8 +118,6 @@ class RecordController extends Controller
         }
 
         if (request()->has(['field', 'direction'])) {
-            // $data->orderBy(request('field'), request('direction'))->get();
-            $sortDirection = $request['direction'];
 
             $data->orderBy(request('field'), request('direction'))
                 ->get();
@@ -75,6 +135,7 @@ class RecordController extends Controller
             'records' => $data->paginate($perpage)->withQueryString(),
             'filters' => request()->all(['search', 'field', 'direction', 'perpage', 'branch_filter']),
             'branches' => $branch_names,
+            'chartdata' => $filtered,
         ]);
     }
 
@@ -163,36 +224,6 @@ class RecordController extends Controller
         // return Inertia::render('Task/Chart', ['data' => $this->getData()]);
     }
 
-    // Get data for chart
-    // public function getQuarterlies()
-    // {
-    //     $rows = $this->quarterlies->join('users', 'tasks.created_by', '=', 'users.id')
-    //         ->select(\DB::raw('users.name as label, count(tasks.status) as data'))
-    //         ->where('tasks.status', 'Complete')
-    //         ->groupBy('users.name')
-    //         ->get();
-
-    //     $data = [];
-    //     $labels = [];
-    //     $colors = [];
-
-    //     foreach ($rows as $row) {
-    //         array_push($data, $row->data);
-    //         array_push($labels, $row->label);
-    //         if (!in_array($this->pickColor(), $colors)) {
-    //             array_push($colors, $this->pickColor());
-    //         }
-    //     }
-
-    //     $filtered = [
-    //         'labels' => $labels,
-    //         'data' => $data,
-    //         'colors' => $colors
-    //     ];
-
-    //     return $filtered;
-    // }
-
     // Random color
     public function pickColor()
     {
@@ -200,6 +231,14 @@ class RecordController extends Controller
         $color = '#' . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)];
         return $color;
     }
+
+    public function pickColor2()
+    {
+        $rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
+        $color = '#' . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)];
+        return $color;
+    }
+
 
     /**
      * Show the form for editing the specified resource.
