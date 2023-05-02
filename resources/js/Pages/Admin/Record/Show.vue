@@ -2,157 +2,147 @@
   <AppLayout title="Record">
     <template #header>
       <!-- Header -->
-      <div class="mx-auto sm:px-6 lg:px-8">
-        <div class="mx-auto md:flex md:justify-between md:items-center px-5 py-3">
-          <div class="pb-2 sm:pb-0">
-            <span class="text-sm text-gray-500 mr-1">
-              <Link
-                :href="route('admin.record.index')"
-                class="uppercase px-2 font-bold cursor-pointer inline-flex"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-                Back to Records
-              </Link>
-            </span>
-          </div>
-          <div class="text-right">
-            <jet-button @click="openModal(true)">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 mr-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              Add Record
-            </jet-button>
-          </div>
-        </div>
+      <div>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+          <span>Records</span>
+        </h2>
       </div>
       <!-- Header -->
     </template>
 
-    <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <!-- Header -->
-        <jet-button @click="openModal(true)">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          Add Record
-        </jet-button>
-        <div class="">
-          <div class="text-gray-600">
-            Branch:
-            <span class="text-emerald-800 text-xl font-bold">{{
-              branch.branch_name
-            }}</span>
-          </div>
-          <div class="text-gray-600">
-            Year:
-            <span class="text-emerald-800 text-xl font-bold">{{ record.year }}</span>
-          </div>
-          <div class="text-gray-600">
-            Total Number of Graduates:
-            <span class="text-emerald-800 text-xl font-bold">{{
-              record.total_graduates
-            }}</span>
-          </div>
-        </div>
-
-        <!-- DISPLAY CHART -->
-        <div class="mx-auto sm:px-6 lg:px-8">
-          <div class="mx-auto w-auto sm:w-96 object-none object-center px-5 py-3">
-            <div class="w-auto px-2 text-center">
-              <button
-                type="submit"
-                @click="exportChart"
-                class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-300 font-medium rounded-l-md text-sm px-4 py-2 text-center"
-              >
-                Export Chart as PNG
-              </button>
-              <button
-                @click="updateChart"
-                class="text-white bg-orange-400 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-300 font-medium rounded-r-md text-sm px-4 py-2 text-center"
-              >
-                Update Chart
-              </button>
+    <div class="">
+      <div class="mx-auto">
+        <div class="mx-auto grid w-full grid-cols-12 gap-4 p-1">
+          <!-- Left -->
+          <div class="col-span-12 lg:col-span-4 border rounded-lg">
+            <!-- Table Header -->
+            <div class="px-4 py-4 bg-gray-200 rounded-t-lg">
+              <div class="flex items-center justify-between">
+                <Link
+                  :href="route('admin.record.index')"
+                  class="text-sm rounded-full text-gray-500 hover:text-green-800"
+                >
+                  <i class="fa-solid fa-angle-left"></i>
+                  Back
+                </Link>
+                <p
+                  tabindex="0"
+                  class="focus:outline-none text-base sm:text-md md:text-lg lg:text-xl font-bold leading-normal text-gray-900"
+                >
+                  Data Chart
+                </p>
+              </div>
             </div>
-            <div class="pb-2 sm:pb-0">
-              <vue3-chart-js
-                :id="doughnutChart.id"
-                ref="chartRef"
-                :type="doughnutChart.type"
-                :data="doughnutChart.data"
-                :options="doughnutChart.options"
-              ></vue3-chart-js>
+            <!-- End Table Header -->
+
+            <div class="mx-auto w-auto object-none object-center">
+              <div class="w-auto px-2 py-4 text-center">
+                <button
+                  type="submit"
+                  @click="exportChart"
+                  class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-300 font-medium rounded-l-md text-sm px-4 py-2 text-center"
+                >
+                  Export Chart as PNG
+                </button>
+                <button
+                  @click="updateChart"
+                  class="text-white bg-orange-400 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-300 font-medium rounded-r-md text-sm px-4 py-2 text-center"
+                >
+                  Update Chart
+                </button>
+              </div>
+              <div class="pb-2 sm:pb-0 bg-white">
+                <vue3-chart-js ref="chartRef" v-bind="{ ...doughnutChart }" />
+              </div>
             </div>
           </div>
-        </div>
-        <!-- DISPLAY CHART -->
+          <!-- End Left -->
 
-        <!-- Header -->
-        <div class="flex flex-col">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-              <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <table class="min-w-full divide-y divide-gray-200">
-                  <thead class="bg-gray-50">
+          <!-- Right -->
+          <div class="col-span-12 rounded-lg border lg:col-span-8">
+            <!-- Table Header -->
+            <div class="px-4 py-4 bg-gray-200 rounded-t-lg">
+              <div class="flex items-center justify-between">
+                <p
+                  tabindex="0"
+                  class="focus:outline-none text-base sm:text-md md:text-lg lg:text-xl font-bold leading-normal text-gray-900"
+                >
+                  Employed
+                </p>
+              </div>
+            </div>
+            <!-- End Table Header -->
+
+            <div class="bg-white py-4 md:py-5">
+              <div class="sm:flex items-center justify-between px-4">
+                <div class="flex items-center">
+                  <!-- Left Details -->
+                  <div class="block px-3">
+                    <div class="text-gray-600">
+                      Branch:
+                      <span class="text-emerald-800 text-xl font-bold">{{
+                        branch.branch_name
+                      }}</span>
+                    </div>
+                    <div class="text-gray-600">
+                      Year:
+                      <span class="text-emerald-800 text-xl font-bold">{{
+                        record.year
+                      }}</span>
+                    </div>
+                    <div class="text-gray-600">
+                      Total Number of Graduates:
+                      <span class="text-emerald-800 text-xl font-bold">{{
+                        record.total_graduates
+                      }}</span>
+                    </div>
+                  </div>
+                  <!-- End Left Details -->
+                </div>
+
+                <!-- Add Button -->
+                <button
+                  @click="openModal(true)"
+                  class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 mt-2 sm:mt-0 inline-flex items-start justify-start px-4 py-2 bg-blue-700 hover:bg-blue-600 focus:outline-none rounded-full drop-shadow-sm"
+                >
+                  <p class="text-sm font-medium leading-none text-white">
+                    <i class="fa-solid fa-circle-plus mr-2"></i> Add Record
+                  </p>
+                </button>
+                <!-- Add Button -->
+              </div>
+
+              <div class="mt-7 overflow-x-auto">
+                <!-- Main Table -->
+                <table class="w-full whitespace-nowrap">
+                  <thead class="bg-gray-100">
                     <tr>
                       <th
                         scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        <span class="inline-flex">
-                          <div>Quarter</div>
-                        </span>
+                        <div class="flex items-center">
+                          <i class="fa-solid fa-calendar-day mx-1"></i>
+                          <span>Quarter</span>
+                        </div>
                       </th>
                       <th
                         scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        <span class="inline-flex">
-                          <div class="inline-block">Employed</div>
-                        </span>
+                        <div class="flex items-center">
+                          <i class="fa-solid fa-briefcase mx-1"></i>
+                          <span>Employed</span>
+                        </div>
                       </th>
                       <th
                         scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        <span class="inline-flex">
-                          <div class="inline-block">Percentage</div>
-                        </span>
+                        <div class="flex items-center">
+                          <i class="fa-solid fa-percent mx-1"></i>
+                          <span>Percentage</span>
+                        </div>
                       </th>
                       <th scope="col" class="relative px-6 py-3">
                         <span class="sr-only">Edit</span>
@@ -201,13 +191,16 @@
                     </tr>
                   </tbody>
                 </table>
+                <!-- End Main Table -->
               </div>
             </div>
           </div>
+          <!-- End Right -->
         </div>
       </div>
     </div>
   </AppLayout>
+
   <dialog-modal :show="isOpen" @close="openModal(false)">
     <template #title>
       <span v-show="!editMode"> Add New Record </span>
@@ -330,6 +323,7 @@ import JetSecondaryButton from "@/Components/SecondaryButton.vue";
 import JetLabel from "@/Components/InputLabel.vue";
 import JetInput from "@/Components/Input.vue";
 import JetPagination from "@/Jetstream/Pagination.vue";
+import NavLink from "@/Components/NavLink.vue";
 import DialogModal from "@/Components/DialogModal.vue";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
@@ -347,6 +341,7 @@ export default {
     JetLabel,
     JetInput,
     JetPagination,
+    NavLink,
     DialogModal,
     Datepicker,
     Vue3ChartJs,
@@ -364,29 +359,31 @@ export default {
 
     const doughnutChart = {
       id: "doughnutChart",
-      type: "doughnut",
+      type: "pie",
       data: {
         labels: quarterlies.data.labels,
         datasets: [
           {
             label: "Percentage",
             data: quarterlies.data.percentage,
+            // backgroundColor: "rgba(3, 66, 252, 0.7)",
             backgroundColor: quarterlies.data.colors,
             offset: 4,
           },
-          {
-            label: "Number of employed",
-            data: quarterlies.data.employed,
-            backgroundColor: quarterlies.data.colors,
-            offset: 4,
-          },
+          // {
+          //   label: "Number of employed",
+          //   data: quarterlies.data.employed,
+          //   backgroundColor: "rgba(252, 3, 3, 0.7)",
+          //   offset: 4,
+          // },
         ],
       },
       options: {
+        responsive: true,
         plugins: {
           title: {
             display: true,
-            text: "Number of employed graduates per quarter.",
+            text: "Percentage of employed graduates per quarter.",
           },
         },
       },
@@ -394,7 +391,7 @@ export default {
 
     const updateChart = () => {
       doughnutChart.options.plugins.title = {
-        text: "Number of employed graduates per quarter.",
+        text: "Percentage employed graduates per quarter.",
         display: true,
       };
       doughnutChart.data.labels = quarterlies.data.labels;
@@ -405,12 +402,12 @@ export default {
           backgroundColor: quarterlies.data.colors,
           offset: 4,
         },
-        {
-          label: "Number of employed",
-          data: quarterlies.data.employed,
-          backgroundColor: quarterlies.data.colors,
-          offset: 4,
-        },
+        // {
+        //   label: "Number of employed",
+        //   data: quarterlies.data.employed,
+        //   backgroundColor: "rgba(252, 3, 3, 0.7)",
+        //   offset: 4,
+        // },
       ];
 
       chartRef.value.update(250);

@@ -73,10 +73,8 @@ class RecordController extends Controller
 
         // Doughnut Chart
         $t_years = [];
-        $t_graduates = [];
 
         foreach ($chart_data as $row) {
-            $total_graduates = 0;
 
             if (in_array($row->year, $t_years)) {
                 // 
@@ -228,7 +226,7 @@ class RecordController extends Controller
     public function pickColor()
     {
         $rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
-        $color = '#' . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)];
+        $color = '#' . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . $rand[rand(0, 15)] . 'CC';
         return $color;
     }
 

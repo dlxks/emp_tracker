@@ -10,7 +10,7 @@
       <!-- Header -->
     </template>
 
-    <div class="py-0 md:py-12">
+    <div class="">
       <div class="mx-auto">
         <div class="mx-auto grid w-full grid-cols-12 gap-4 p-1">
           <!-- Left -->
@@ -49,7 +49,6 @@
                   </div>
                 </div>
               </div>
-              <!-- End Table Header -->
 
               <div class="bg-white py-4 md:py-5">
                 <div class="sm:flex items-center justify-between px-4">
@@ -129,7 +128,9 @@
                   </button>
                   <!-- End Add Button -->
                 </div>
+                <!-- End Table Header -->
 
+                <!-- Main Table -->
                 <div class="mt-7 overflow-x-auto">
                   <table class="w-full whitespace-nowrap">
                     <thead class="bg-gray-100">
@@ -330,9 +331,6 @@
                   </table>
                 </div>
               </div>
-              <!-- End Table Header -->
-
-              <!-- Main Table -->
               <!-- End Main Table -->
 
               <!-- Pagination -->
@@ -577,7 +575,7 @@ export default {
     // Main Chart
     const sideChart = {
       id: "sideChart",
-      type: "line",
+      type: "bar",
       data: {
         labels: data.chartdata.labels,
         datasets: [
@@ -590,9 +588,7 @@ export default {
             pointStyle: "circle",
             pointRadius: 10,
             pointHoverRadius: 15,
-            tension: 0.5,
             fill: false,
-            tension: 0.5,
           },
           {
             label: "Employed Percentage",
@@ -603,9 +599,7 @@ export default {
             pointStyle: "circle",
             pointRadius: 10,
             pointHoverRadius: 15,
-            tension: 0.5,
             fill: false,
-            tension: 0.5,
           },
         ],
       },
@@ -636,9 +630,7 @@ export default {
           pointStyle: "circle",
           pointRadius: 10,
           pointHoverRadius: 15,
-          tension: 0.5,
           fill: false,
-          tension: 0.5,
         },
         {
           label: "Employed Percentage",
@@ -649,9 +641,7 @@ export default {
           pointStyle: "circle",
           pointRadius: 10,
           pointHoverRadius: 15,
-          tension: 0.5,
           fill: false,
-          tension: 0.5,
         },
       ];
 
