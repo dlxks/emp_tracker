@@ -160,7 +160,6 @@
 </template>
 
 <script>
-// import NotificationDropdown from "@/NotusComponents/Dropdowns/NotificationDropdown.vue";
 import UserDropdown from "@/NotusComponents/Dropdowns/UserDropdown.vue";
 import NavLink from "@/Components/NavLink.vue";
 
@@ -180,6 +179,10 @@ export default {
   methods: {
     toggleCollapseShow: function (classes) {
       this.collapseShow = classes;
+    },
+
+    logout: function () {
+      this.$inertia.post(route("logout"));
     },
   },
 };

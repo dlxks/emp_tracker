@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class AdminDashboardController extends Controller
@@ -15,7 +16,16 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/Dashboard/Index');
+
+        $noOfUsers = DB::table('users')->count();
+        $noOfBranches = DB::table('branches')->count();
+        $noOfRecords = DB::table('records')->count();
+
+        return Inertia::render('Admin/Dashboard/Index', [
+            'noOfUsers' => $noOfUsers,
+            'noOfBranches' => $noOfBranches,
+            'noOfRecords' => $noOfRecords,
+        ]);
     }
 
     /**

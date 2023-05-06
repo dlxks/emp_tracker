@@ -20,7 +20,7 @@
               <div class="flex items-center justify-between">
                 <Link
                   :href="route('admin.record.index')"
-                  class="text-sm rounded-full text-gray-500 hover:text-green-800"
+                  class="text-sm rounded-full text-gray-500 hover:text-green-800 font-bold"
                 >
                   <i class="fa-solid fa-angle-left"></i>
                   Back

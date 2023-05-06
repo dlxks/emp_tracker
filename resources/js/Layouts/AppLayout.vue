@@ -19,7 +19,7 @@
           <slot />
         </main>
 
-        <!-- <footer-admin /> -->
+        <footer-admin />
       </div>
     </div>
   </div>
