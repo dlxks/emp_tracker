@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Head :title="title" />
     <sidebar />
     <!-- Page Heading -->
     <header v-if="$slots.header" class="bg-white shadow">
@@ -25,6 +26,7 @@
   </div>
 </template>
 <script>
+import { Head, Link } from "@inertiajs/inertia-vue3";
 import AdminNavbar from "@/NotusComponents/Navbars/AdminNavbar.vue";
 import Sidebar from "@/NotusComponents/Sidebar/Sidebar.vue";
 import HeaderStats from "@/NotusComponents/Headers/HeaderStats.vue";
@@ -34,6 +36,8 @@ import Banner from "@/Components/Banner.vue";
 export default {
   name: "admin-layout",
   components: {
+    Link,
+    Head,
     AdminNavbar,
     Sidebar,
     HeaderStats,

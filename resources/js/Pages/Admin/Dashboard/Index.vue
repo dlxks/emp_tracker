@@ -20,8 +20,6 @@
                 statSubtitle="REGISTERED USERS"
                 :statTitle="noOfRecords"
                 statArrow="up"
-                statPercent="3.48"
-                statPercentColor="text-emerald-500"
                 statDescripiron="Since last month"
                 statIconName="fa fa-users"
                 statIconColor="bg-red-500"
@@ -32,8 +30,6 @@
                 statSubtitle="BRANCHES"
                 :statTitle="noOfBranches"
                 statArrow="down"
-                statPercent="3.48"
-                statPercentColor="text-red-500"
                 statDescripiron="Since last week"
                 statIconName="fa fa-landmark"
                 statIconColor="bg-orange-500"
@@ -44,8 +40,6 @@
                 statSubtitle="RECORDS"
                 :statTitle="noOfRecords"
                 statArrow="down"
-                statPercent="1.10"
-                statPercentColor="text-orange-500"
                 statDescripiron="Since yesterday"
                 statIconName="fa fa-chart-column"
                 statIconColor="bg-pink-500"
@@ -56,17 +50,24 @@
         </div>
       </div>
     </div>
+
+    <!--  -->
+    <div>
+      <!-- <Calendar /> -->
+    </div>
   </AppLayout>
 </template>
 <script>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Welcome from "@/Components/Welcome.vue";
+import Calendar from "@/Components/Calendar.vue";
 import CardStats from "@/NotusComponents/Cards/CardStats.vue";
 
 export default {
   components: {
     AppLayout,
     Welcome,
+    Calendar,
     CardStats,
   },
 
