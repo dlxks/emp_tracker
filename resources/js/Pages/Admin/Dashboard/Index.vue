@@ -18,7 +18,7 @@
             <div class="w-full lg:w-6/12 xl:w-4/12 px-4">
               <card-stats
                 statSubtitle="REGISTERED USERS"
-                :statTitle="noOfRecords"
+                :statTitle="noOfUsers"
                 statArrow="up"
                 statDescripiron="Since last month"
                 statIconName="fa fa-users"
